@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MealsPage from './components/meals/MealsPage';
 import TrackerPage from './components/tracker/TrackerPage';
 import StatisticsPage from './components/statistics/StatisticsPage';
@@ -9,15 +9,15 @@ import SettingsPage from './components/settings/SettingsPage';
 
 const Tab = createBottomTabNavigator();
 
- const App = () => {
+const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator      
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
-            switch(route.name) {
+            switch (route.name) {
               case 'Meals':
                 iconName = 'food-croissant';
                 break;
@@ -31,21 +31,19 @@ const Tab = createBottomTabNavigator();
                 iconName = 'settings';
                 break;
               default:
-                iconName = 'warehouse'
+                iconName = 'warehouse';
             }
 
-            // You can return any component that you like here!
             return <Icon name={iconName} size={35} color={color} />;
           },
         })}
         tabBarOptions={{
           style: {
-            height: 60
+            height: 60,
           },
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
-        }}
-      >
+        }}>
         <Tab.Screen name="Meals" component={MealsPage} />
         <Tab.Screen name="Tracker" component={TrackerPage} />
         <Tab.Screen name="Statistics" component={StatisticsPage} />
@@ -53,6 +51,6 @@ const Tab = createBottomTabNavigator();
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default App;
