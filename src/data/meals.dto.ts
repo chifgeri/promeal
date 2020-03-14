@@ -1,4 +1,7 @@
+import {Ingredient} from './ingredient.dto';
+
 export interface Meal {
-  ingredients: string[];
+  key: number;
+  ingredients: Ingredient[];
   name: string;
 }
