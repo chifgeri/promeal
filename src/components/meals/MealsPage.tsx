@@ -7,7 +7,17 @@ const MealsPage = () => {
     <View style={{padding: 20}}>
       <Text>Meals</Text>
       <MealCard
-        meal={{name: 'Spaghetti a la corona', ingredients: ['asdas']}}
+        meal={{
+          key: 1,
+          name: 'Spaghetti a la corona as',
+          ingredients: [
+            {
+              key: 1,
+              name: 'Tomato',
+              nutrients: [{key: 1, nutrient: 'Prot.', quantity: '50g'}],
+            },
+          ],
+        }}
       />
     </View>
   );

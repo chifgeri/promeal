@@ -22,7 +22,6 @@ const style = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowColor: 'black',
     backgroundColor: 'white',
-    height: 100,
     elevation: 3,
     borderWidth: 1,
     borderRadius: 10,
@@ -31,14 +30,18 @@ const style = StyleSheet.create({
     shadowRadius: 10,
   },
   titleBackground: {
-    width: 'auto',
+    width: '90%',
     height: 'auto',
-    borderRadius: 10,
   },
   title: {
     color: 'white',
+    width: '75%',
     margin: 5,
     marginHorizontal: 20,
+  },
+  cardContent: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   bottomButtons: {
     display: 'flex',
@@ -55,6 +58,16 @@ const style = StyleSheet.create({
     padding: 5,
     borderBottomEndRadius: 10,
   },
+  ingredients: {
+    marginHorizontal: 20,
+  },
+  nutrients: {
+    backgroundColor: 'lightgrey',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginHorizontal: 20,
+  },
 });
 
 const MealCard: React.FC<Props> = ({meal}) => {
@@ -62,24 +75,35 @@ const MealCard: React.FC<Props> = ({meal}) => {
     <View style={style.card}>
       <ImageBackground
         source={require('../../assets/mealCard.png')}
-        style={style.titleBackground}>
-        <Text style={style.title}>{meal.name}</Text>
+        style={style.titleBackground}
+        resizeMode="stretch">
+        <View>
+          <Text style={style.title}>{meal.name}</Text>
+        </View>
       </ImageBackground>
-      <Text>Ingredients:</Text>
-      {meal
-        ? meal.ingredients.map(item => (
-            <View>
-              <Text>{item}</Text>
-            </View>
-          ))
-        : null}
+      <View style={style.cardContent}>
+        <Text>Ingredients:</Text>
+        {meal
+          ? meal.ingredients.map(item => (
+              <View key={`ingrd-${item.key}`} style={style.ingredients}>
+                <Text>{item.name}:</Text>
+                {item.nutrients.map(item => (
+                  <View key={`nutr-${item.key}`} style={style.nutrients}>
+                    <Text>{item.nutrient}</Text>
+                    <Text>{item.quantity}</Text>
+                  </View>
+                ))}
+              </View>
+            ))
+          : null}
+      </View>
       <View style={style.bottomButtons}>
-        <TouchableHighlight onPress={() => {}}>
+        <TouchableHighlight onPress={() => {}} underlayColor="#FFFFFF00">
           <View style={style.edit}>
             <Icon name="edit" size={20} color="black" />
           </View>
         </TouchableHighlight>
-        <TouchableHighlight onPress={() => {}}>
+        <TouchableHighlight onPress={() => {}} underlayColor="#FFFFFF00">
           <View style={style.delete}>
             <Icon name="clear" size={20} color="white" />
           </View>
