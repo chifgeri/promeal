@@ -11,14 +11,15 @@ import {Meal} from 'src/data/meals.dto';
 
 interface Props {
   meal: Meal;
+  removeItem: (id: number) => void;
 }
 
 const style = StyleSheet.create({
   card: {
-    display: 'flex',
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    shadowOffset: {width: 10, height: 10},
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.8,
     shadowColor: 'black',
     backgroundColor: 'white',
@@ -28,6 +29,8 @@ const style = StyleSheet.create({
     borderColor: '#ddd',
     borderBottomWidth: 0,
     shadowRadius: 10,
+    minWidth: 280,
+    maxWidth: 300,
   },
   titleBackground: {
     width: '90%',
@@ -54,7 +57,7 @@ const style = StyleSheet.create({
     borderTopStartRadius: 10,
   },
   delete: {
-    backgroundColor: 'red',
+    backgroundColor: '#B50606',
     padding: 5,
     borderBottomEndRadius: 10,
   },
@@ -70,7 +73,7 @@ const style = StyleSheet.create({
   },
 });
 
-const MealCard: React.FC<Props> = ({meal}) => {
+const MealCard: React.FC<Props> = ({meal, removeItem}) => {
   return (
     <View style={style.card}>
       <ImageBackground
@@ -103,7 +106,11 @@ const MealCard: React.FC<Props> = ({meal}) => {
             <Icon name="edit" size={20} color="black" />
           </View>
         </TouchableHighlight>
-        <TouchableHighlight onPress={() => {}} underlayColor="#FFFFFF00">
+        <TouchableHighlight
+          onPress={() => {
+            removeItem(meal.key);
+          }}
+          underlayColor="#FFFFFF00">
           <View style={style.delete}>
             <Icon name="clear" size={20} color="white" />
           </View>
