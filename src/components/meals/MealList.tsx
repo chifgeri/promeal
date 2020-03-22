@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {Meal} from 'src/data/meals.dto';
 import MealCard from './MealCard';
+import MealCreate from './MealCreate';
 
 interface Props {
   meals: Meal[];
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
 });
 
 const MealList = (props: Props) => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -53,14 +55,6 @@ const MealList = (props: Props) => {
             <MealCard removeItem={props.removeItem} meal={item} />
           </View>
         )}
-        ListFooterComponent={
-          <TouchableHighlight
-            onPress={() => {}}
-            style={styles.button}
-            underlayColor="green">
-            <Text style={styles.buttonText}>Add</Text>
-          </TouchableHighlight>
-        }
         keyExtractor={item => item.key.toString()}
       />
     </SafeAreaView>

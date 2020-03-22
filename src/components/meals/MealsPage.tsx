@@ -1,8 +1,15 @@
 import React, {useState} from 'react';
-import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  TouchableHighlight,
+} from 'react-native';
 import MealCard from './MealCard';
 import MealList from './MealList';
 import {Meal} from 'src/data/meals.dto';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const mealsArray = [
   {
@@ -79,6 +86,12 @@ const MealsPage = () => {
         removeItem={id => setMeals(meals.filter(item => item.key !== id))}
         meals={meals}
       />
+      <TouchableHighlight
+        onPress={() => {}}
+        style={styles.button}
+        underlayColor="green">
+        <Icon name="add" size={32} color="white" />
+      </TouchableHighlight>
     </>
   );
 };
@@ -90,6 +103,20 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
+  },
+  button: {
+    position: 'absolute',
+    zIndex: 100,
+    bottom: 16,
+    left: 16,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#AFB42B',
+    width: 'auto',
+    borderTopEndRadius: 10,
+    borderBottomStartRadius: 10,
+    padding: 10,
   },
 });
 
