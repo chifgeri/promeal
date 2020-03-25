@@ -6,6 +6,7 @@ import MealsPage from './components/meals/MealsPage';
 import TrackerPage from './components/tracker/TrackerPage';
 import StatisticsPage from './components/statistics/StatisticsPage';
 import SettingsPage from './components/settings/SettingsPage';
+import MealStackScreen from './components/meals/MealsStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +45,7 @@ const App = () => {
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
         }}>
-        <Tab.Screen name="Meals" component={MealsPage} />
+        <Tab.Screen name="Meals" component={MealStackScreen} />
         <Tab.Screen name="Tracker" component={TrackerPage} />
         <Tab.Screen name="Statistics" component={StatisticsPage} />
         <Tab.Screen name="Settings" component={SettingsPage} />
