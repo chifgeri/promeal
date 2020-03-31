@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native';
-import MealCard from './MealCard';
+import {StyleSheet, TouchableHighlight} from 'react-native';
 import MealList from './MealList';
 import {Meal} from 'src/data/meals.dto';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -21,6 +14,7 @@ const mealsArray = [
         key: 1,
         name: 'Tomato',
         nutrients: [{key: 11, nutrient: 'Prot.', quantity: '50g'}],
+        quantityInGramm: 100,
       },
     ],
   },
@@ -33,11 +27,13 @@ const mealsArray = [
         key: 1,
         name: 'Tomato',
         nutrients: [{key: 21, nutrient: 'Prot.', quantity: '50g'}],
+        quantityInGramm: 100,
       },
       {
         key: 2,
         name: 'Krumpli',
         nutrients: [{key: 22, nutrient: 'CH.', quantity: '150g'}],
+        quantityInGramm: 100,
       },
     ],
   },
@@ -49,11 +45,13 @@ const mealsArray = [
         key: 1,
         name: 'Tomato',
         nutrients: [{key: 21, nutrient: 'Prot.', quantity: '50g'}],
+        quantityInGramm: 100,
       },
       {
         key: 2,
         name: 'Krumpli',
         nutrients: [{key: 22, nutrient: 'CH.', quantity: '150g'}],
+        quantityInGramm: 100,
       },
     ],
   },
@@ -65,11 +63,13 @@ const mealsArray = [
         key: 1,
         name: 'Tomato',
         nutrients: [{key: 21, nutrient: 'Prot.', quantity: '50g'}],
+        quantityInGramm: 100,
       },
       {
         key: 2,
         name: 'Krumpli',
         nutrients: [{key: 22, nutrient: 'CH.', quantity: '150g'}],
+        quantityInGramm: 100,
       },
     ],
   },

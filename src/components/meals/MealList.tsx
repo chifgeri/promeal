@@ -1,16 +1,7 @@
 import React, {useState} from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Button,
-  Text,
-  TouchableHighlight,
-} from 'react-native';
+import {FlatList, StyleSheet, SafeAreaView, View} from 'react-native';
 import {Meal} from 'src/data/meals.dto';
 import MealCard from './MealCard';
-import MealCreate from './MealCreate';
 
 interface Props {
   meals: Meal[];
@@ -45,7 +36,6 @@ const styles = StyleSheet.create({
 });
 
 const MealList = (props: Props) => {
-  const [showModal, setShowModal] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
       <FlatList

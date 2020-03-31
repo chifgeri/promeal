@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   TouchableHighlight,
-  TextInput,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import BaseButton from '../../core/BaseButton';
-import BaseInput from '../../core/BaseInput';
+import BaseButton from '../../core/components/BaseButton';
+import BaseInput from '../../core/components/BaseInput';
+import {Ingredient} from 'src/data/ingredient.dto';
 
 interface Props {}
 
 const MealCreate = (props: Props) => {
+  const [newIngredient, setNewIngredient] = useState<Ingredient | null>(null);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Create a meal</Text>
@@ -22,6 +25,12 @@ const MealCreate = (props: Props) => {
       </View>
       <View style={styles.section}>
         <Text style={styles.subtitle}>Ingredients</Text>
+        {ingredients.map(item => (
+          <View key={`ingr-${item.key}`}>
+            <Text>{item.name}</Text>
+            <Text>{item.quantityInGramm} gr</Text>
+          </View>
+        ))}
         <BaseInput
           inlineImageLeft="ic_search"
           placeholder="Search ingredients or meals"
@@ -38,7 +47,14 @@ const MealCreate = (props: Props) => {
           <Text>gr</Text>
         </View>
       </View>
-      <BaseButton onPress={() => {}} primary>
+      <BaseButton
+        onPress={() => {
+          if (newIngredient) {
+            setIngredients([...ingredients, newIngredient]);
+            setNewIngredient(null);
+          }
+        }}
+        primary>
         <Text style={{color: 'white', marginVertical: 4}}>Add</Text>
       </BaseButton>
       <View style={styles.bottomSection}>
