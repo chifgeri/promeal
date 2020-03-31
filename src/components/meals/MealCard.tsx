@@ -90,12 +90,13 @@ const MealCard: React.FC<Props> = ({meal, removeItem}) => {
           ? meal.ingredients.map(item => (
               <View key={`ingrd-${item.key}`} style={style.ingredients}>
                 <Text>{item.name}:</Text>
-                {item.nutrients.map(item => (
-                  <View key={`nutr-${item.key}`} style={style.nutrients}>
-                    <Text>{item.nutrient}</Text>
-                    <Text>{item.quantity}</Text>
-                  </View>
-                ))}
+                {item.nutrients &&
+                  item.nutrients.map(it => (
+                    <View key={`nutr-${it.key}`} style={style.nutrients}>
+                      <Text>{it.nutrient}</Text>
+                      <Text>{it.quantity}</Text>
+                    </View>
+                  ))}
               </View>
             ))
           : null}
