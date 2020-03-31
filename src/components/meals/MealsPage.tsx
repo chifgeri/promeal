@@ -10,6 +10,7 @@ import MealCard from './MealCard';
 import MealList from './MealList';
 import {Meal} from 'src/data/meals.dto';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
 
 const mealsArray = [
   {
@@ -76,18 +77,18 @@ const mealsArray = [
 
 const MealsPage = () => {
   const [meals, setMeals] = useState<Meal[]>(mealsArray);
+  const navigation = useNavigation();
   return (
     <>
-      <View style={styles.container}>
-        <Text style={styles.title}>Meals</Text>
-        {/* Search bar */}
-      </View>
+      {/* Search bar */}
       <MealList
         removeItem={id => setMeals(meals.filter(item => item.key !== id))}
         meals={meals}
       />
       <TouchableHighlight
-        onPress={() => {}}
+        onPress={() => {
+          navigation.navigate('MealCreate');
+        }}
         style={styles.button}
         underlayColor="green">
         <Icon name="add" size={32} color="white" />
