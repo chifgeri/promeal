@@ -11,13 +11,11 @@ import BaseInput from '../../core/components/BaseInput';
 import {Ingredient} from 'src/data/ingredient.dto';
 import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
+import IngredientChooser from './IngredientChooser';
 
 interface Props {}
 
 const MealCreate = (props: Props) => {
-  const [newIngredient, setNewIngredient] = useState<Ingredient | null>(null);
-  const [name, setName] = useState<string>('');
-  const [quantity, setQuantity] = useState<number>(0);
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   const navigation = useNavigation();
@@ -43,50 +41,13 @@ const MealCreate = (props: Props) => {
               <Text>{item.quantityInGramm} gr</Text>
             </View>
           ))}
-          <BaseInput
-            inlineImageLeft="ic_search"
-            placeholder="Search ingredients or meals"
-            value={name}
-            onChangeText={text => setName(text)}
-          />
         </View>
-        <View style={styles.quantity}>
-          <Text>Quantity</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <BaseInput
-              placeholder="gramms"
-              keyboardType="decimal-pad"
-              underlineColorAndroid="grey"
-              value={quantity.toString()}
-              onChangeText={text => {
-                setQuantity(Number(text));
-              }}
-            />
-            <Text>gr</Text>
-          </View>
-        </View>
-        <View style={styles.addButton}>
-          <BaseButton
-            onPress={() => {
-              if (name.length !== 0 && quantity > 0) {
-                setIngredients([
-                  ...ingredients,
-                  {
-                    key: 12,
-                    name: name,
-                    quantityInGramm: quantity,
-                    nutrients: [],
-                  },
-                ]);
-                setName('');
-                setQuantity(0);
-                setNewIngredient(null);
-              }
-            }}
-            primary>
-            <Text style={{color: 'white', marginHorizontal: 10}}>Add</Text>
-          </BaseButton>
-        </View>
+        <IngredientChooser
+          addIngredient={item => {
+            setIngredients([...ingredients, item]);
+            console.log(ingredients);
+          }}
+        />
       </View>
       <View style={styles.bottomSection}>
         <TouchableHighlight
@@ -131,18 +92,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 10,
   },
-  quantity: {
-    marginVertical: 4,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  addButton: {
-    alignItems: 'center',
-    marginVertical: 10,
-  },
   bottomSection: {
     alignItems: 'center',
+    paddingBottom: 10,
   },
 });
 
