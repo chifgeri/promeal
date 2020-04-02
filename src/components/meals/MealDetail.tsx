@@ -1,8 +1,9 @@
-import React from 'react';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
 import {View, Text, StyleSheet} from 'react-native';
-import BaseInput from '../../core/components/BaseInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import BaseButton from '../../core/components/BaseButton';
+import IngredientChooser from './IngredientChooser';
 import {Meal} from '../../data/meals.dto';
 
 interface Props {
@@ -14,7 +15,9 @@ interface Props {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    padding: 15,
+  },
   title: {
     fontSize: 26,
     alignSelf: 'center',
@@ -32,6 +35,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 10,
   },
   ingrText: {
     fontSize: 18,
@@ -45,19 +49,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: 20,
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#cccfcc',
   },
   nutrTextLight: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: 20,
-    backgroundColor: 'grey',
+    backgroundColor: '#9fa19f',
     color: 'white',
+  },
+  delete: {
+    backgroundColor: '#B50606',
+    padding: 5,
+    marginHorizontal: 10,
+    borderBottomEndRadius: 10,
+    borderTopStartRadius: 10,
   },
 });
 
 const MealDetail = (props: Props) => {
   const meal = props.route.params.meal;
+  const [edit, setEdit] = useState(false);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -68,7 +80,18 @@ const MealDetail = (props: Props) => {
             <View key={`ingr-${item.key}`} style={styles.ingredient}>
               <View style={styles.row}>
                 <Text style={styles.ingrText}>{item.name} (Brand)</Text>
-                <Text style={styles.ingrText}>{item.quantityInGramm} gr</Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.ingrText}>{item.quantityInGramm} gr</Text>
+                  {edit && (
+                    <TouchableHighlight
+                      onPress={() => {}}
+                      underlayColor="#FFFFFF00">
+                      <View style={styles.delete}>
+                        <Icon name="clear" size={20} color="white" />
+                      </View>
+                    </TouchableHighlight>
+                  )}
+                </View>
               </View>
               {item.nutrients &&
                 item.nutrients.map((it, index) => (
@@ -78,17 +101,35 @@ const MealDetail = (props: Props) => {
                       index % 2 === 0 ? styles.nutrTextLight : styles.nutrText
                     }>
                     <Text>{it.nutrient}</Text>
-                    <Text>{it.quantity} gr</Text>
+                    <Text>{it.quantity}</Text>
                   </View>
                 ))}
             </View>
           ))}
         </View>
+        {edit && <IngredientChooser addIngredient={() => {}} />}
       </View>
+
       <View>
-        <BaseButton onPress={() => {}} secondary style={{marginTop: 10}}>
-          <Text style={{color: 'white', marginHorizontal: 10}}>Save</Text>
-        </BaseButton>
+        {edit ? (
+          <BaseButton
+            onPress={() => {
+              setEdit(false);
+            }}
+            secondary
+            style={{marginTop: 10}}>
+            <Text style={{color: 'white', marginHorizontal: 10}}>Save</Text>
+          </BaseButton>
+        ) : (
+          <BaseButton
+            onPress={() => {
+              setEdit(true);
+            }}
+            secondary
+            style={{marginTop: 10}}>
+            <Text style={{color: 'white', marginHorizontal: 10}}>Edit</Text>
+          </BaseButton>
+        )}
       </View>
     </ScrollView>
   );

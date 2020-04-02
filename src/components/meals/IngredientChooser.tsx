@@ -58,7 +58,6 @@ const IngredientChooser = (props: Props) => {
       <View style={styles.addButton}>
         <BaseButton
           onPress={() => {
-            console.log('asad');
             if (name.length !== 0 && quantity > 0) {
               props.addIngredient({
                 key: Math.random() * 100,
