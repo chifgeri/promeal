@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import MealsPage from './MealsPage';
 import MealCreate from './MealCreate';
+import MealDetail from './MealDetail';
 
 const MealStack = createStackNavigator();
 const headerOptions = {
@@ -18,6 +19,11 @@ const MealMainStack = () => {
         options={{...headerOptions}}
         name="Meals"
         component={MealsPage}
+      />
+      <MealStack.Screen
+        options={{...headerOptions}}
+        name="MealDetail"
+        component={MealDetail}
       />
     </MealStack.Navigator>
   );

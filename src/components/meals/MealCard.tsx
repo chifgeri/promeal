@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Meal} from 'src/data/meals.dto';
+import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   meal: Meal;
@@ -63,19 +64,19 @@ const style = StyleSheet.create({
   },
   ingredients: {
     marginHorizontal: 20,
-  },
-  nutrients: {
-    backgroundColor: 'lightgrey',
-    display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginHorizontal: 20,
   },
 });
 
 const MealCard: React.FC<Props> = ({meal, removeItem}) => {
+  const navigation = useNavigation();
   return (
-    <View style={style.card}>
+    <View
+      style={style.card}
+      onTouchEnd={() => {
+        navigation.navigate('MealDetail', {meal: meal});
+      }}>
       <ImageBackground
         source={require('../../assets/mealCard.png')}
         style={style.titleBackground}
@@ -90,13 +91,7 @@ const MealCard: React.FC<Props> = ({meal, removeItem}) => {
           ? meal.ingredients.map(item => (
               <View key={`ingrd-${item.key}`} style={style.ingredients}>
                 <Text>{item.name}:</Text>
-                {item.nutrients &&
-                  item.nutrients.map(it => (
-                    <View key={`nutr-${it.key}`} style={style.nutrients}>
-                      <Text>{it.nutrient}</Text>
-                      <Text>{it.quantity}</Text>
-                    </View>
-                  ))}
+                <Text>{item.quantityInGramm} gr</Text>
               </View>
             ))
           : null}
