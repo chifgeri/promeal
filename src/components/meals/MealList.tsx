@@ -45,7 +45,7 @@ const MealList = (props: Props) => {
             <MealCard removeItem={props.removeItem} meal={item} />
           </View>
         )}
-        keyExtractor={item => item.key.toString()}
+        keyExtractor={item => item.id.toString()}
       />
     </SafeAreaView>
   );

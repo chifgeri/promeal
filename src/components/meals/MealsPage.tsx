@@ -4,90 +4,27 @@ import MealList from './MealList';
 import {Meal} from 'src/data/meals.dto';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-
-const mealsArray = [
-  {
-    key: 1,
-    name: 'Spaghetti a la corona as',
-    ingredients: [
-      {
-        key: 1,
-        name: 'Tomato',
-        nutrients: [{key: 11, nutrient: 'Prot.', quantity: '50g'}],
-        quantityInGramm: 100,
-      },
-    ],
-  },
-
-  {
-    key: 2,
-    name: 'Pizza sültkrumpli',
-    ingredients: [
-      {
-        key: 1,
-        name: 'Tomato',
-        nutrients: [{key: 21, nutrient: 'Prot.', quantity: '50g'}],
-        quantityInGramm: 100,
-      },
-      {
-        key: 2,
-        name: 'Krumpli',
-        nutrients: [{key: 22, nutrient: 'CH.', quantity: '150g'}],
-        quantityInGramm: 100,
-      },
-    ],
-  },
-  {
-    key: 3,
-    name: 'Pizza sültkrumpli',
-    ingredients: [
-      {
-        key: 1,
-        name: 'Tomato',
-        nutrients: [{key: 21, nutrient: 'Prot.', quantity: '50g'}],
-        quantityInGramm: 100,
-      },
-      {
-        key: 2,
-        name: 'Krumpli',
-        nutrients: [{key: 22, nutrient: 'CH.', quantity: '150g'}],
-        quantityInGramm: 100,
-      },
-    ],
-  },
-  {
-    key: 4,
-    name: 'Pizza sültkrumpli',
-    ingredients: [
-      {
-        key: 1,
-        name: 'Tomato',
-        nutrients: [{key: 21, nutrient: 'Prot.', quantity: '50g'}],
-        quantityInGramm: 100,
-      },
-      {
-        key: 2,
-        name: 'Krumpli',
-        nutrients: [{key: 22, nutrient: 'CH.', quantity: '150g'}],
-        quantityInGramm: 100,
-      },
-    ],
-  },
-];
+import IngredientSearch from './ingredients/IngredientSearch';
 
 const MealsPage = () => {
-  const [meals, setMeals] = useState<Meal[]>(mealsArray);
+  const [meals, setMeals] = useState<Meal[]>([]);
   const navigation = useNavigation();
   return (
     <>
       {/* Search bar */}
-      <MealList
-        removeItem={id => setMeals(meals.filter(item => item.key !== id))}
-        meals={meals}
-      />
+      {meals && (
+        <MealList
+          removeItem={id => setMeals(meals.filter(item => item.id !== id))}
+          meals={meals}
+        />
+      )}
       <TouchableHighlight
         onPress={() => {
-          navigation.navigate('MealCreate');
+          navigation.navigate('MealCreate', {
+            addMeal: (meal: Meal) => {
+              setMeals([...meals, meal]);
+            },
+          });
         }}
         style={styles.button}
         underlayColor="green">

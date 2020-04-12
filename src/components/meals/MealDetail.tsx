@@ -3,8 +3,9 @@ import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
 import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BaseButton from '../../core/components/BaseButton';
-import IngredientChooser from './IngredientChooser';
+import IngredientChooser from './ingredients/IngredientChooser';
 import {Meal} from '../../data/meals.dto';
+import NutrientsList from './ingredients/NutrientsList';
 
 interface Props {
   route: {
@@ -45,19 +46,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 10,
   },
-  nutrText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 20,
-    backgroundColor: '#cccfcc',
-  },
-  nutrTextLight: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 20,
-    backgroundColor: '#9fa19f',
-    color: 'white',
-  },
   delete: {
     backgroundColor: '#B50606',
     padding: 5,
@@ -77,7 +65,7 @@ const MealDetail = (props: Props) => {
         <View style={styles.section}>
           <Text style={styles.subtitle}>Ingredients</Text>
           {meal.ingredients.map(item => (
-            <View key={`ingr-${item.key}`} style={styles.ingredient}>
+            <View key={item.id} style={styles.ingredient}>
               <View style={styles.row}>
                 <Text style={styles.ingrText}>{item.name} (Brand)</Text>
                 <View style={{flexDirection: 'row'}}>
@@ -93,17 +81,7 @@ const MealDetail = (props: Props) => {
                   )}
                 </View>
               </View>
-              {item.nutrients &&
-                item.nutrients.map((it, index) => (
-                  <View
-                    key={`ingr-${it.key}`}
-                    style={
-                      index % 2 === 0 ? styles.nutrTextLight : styles.nutrText
-                    }>
-                    <Text>{it.nutrient}</Text>
-                    <Text>{it.quantity}</Text>
-                  </View>
-                ))}
+              <NutrientsList ingredient={item} />
             </View>
           ))}
         </View>

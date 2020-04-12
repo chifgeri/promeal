@@ -11,13 +11,20 @@ import BaseInput from '../../core/components/BaseInput';
 import {Ingredient} from 'src/data/ingredient.dto';
 import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
-import IngredientChooser from './IngredientChooser';
+import IngredientChooser from './ingredients/IngredientChooser';
+import {Meal} from 'src/data/meals.dto';
 
-interface Props {}
+interface Props {
+  route: {
+    params: {
+      addMeal: (meal: Meal) => void;
+    };
+  };
+}
 
 const MealCreate = (props: Props) => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-
+  const [name, setName] = useState<string>('');
   const navigation = useNavigation();
 
   return (
@@ -31,12 +38,18 @@ const MealCreate = (props: Props) => {
         <Text style={styles.title}>Create a meal</Text>
         <View style={styles.section}>
           <Text style={styles.subtitle}>Name</Text>
-          <BaseInput placeholder="Spaghetti" underlineColorAndroid="grey" />
+          <BaseInput
+            placeholder="Spaghetti"
+            underlineColorAndroid="grey"
+            onChangeText={text => {
+              setName(text);
+            }}
+          />
         </View>
         <View style={styles.section}>
           <Text style={styles.subtitle}>Ingredients</Text>
           {ingredients.map(item => (
-            <View key={`ingr-${item.key}`} style={styles.ingredient}>
+            <View key={item.id} style={styles.ingredient}>
               <Text>{item.name} (Brand)</Text>
               <Text>{item.quantityInGramm} gr</Text>
             </View>
@@ -45,7 +58,6 @@ const MealCreate = (props: Props) => {
         <IngredientChooser
           addIngredient={item => {
             setIngredients([...ingredients, item]);
-            console.log(ingredients);
           }}
         />
       </View>
@@ -56,7 +68,16 @@ const MealCreate = (props: Props) => {
           }}>
           <Text>Cancel</Text>
         </TouchableHighlight>
-        <BaseButton onPress={() => {}} secondary style={{marginTop: 10}}>
+        <BaseButton
+          onPress={() => {
+            props.route.params.addMeal({
+              id: 5,
+              ingredients: ingredients,
+              name: name,
+            });
+          }}
+          secondary
+          style={{marginTop: 10}}>
           <Text style={{color: 'white', marginHorizontal: 10}}>Save</Text>
         </BaseButton>
       </View>

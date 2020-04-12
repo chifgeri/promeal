@@ -9,6 +9,13 @@ const baseRequest = axios.create({
   timeout: 10000,
 });
 
+const convert = (item: any) => ({
+  id: item.nutrientNumber,
+  nutrient: item.nutrientName,
+  amount: item.value,
+  unit: item.unitName,
+});
+
 export const searchFood = (humanText: String) => {
   // If another call executed, the component cancels the old request
   const CancelToken = axios.CancelToken;
@@ -32,48 +39,23 @@ export const searchFood = (humanText: String) => {
           switch (item.nutrientNumber) {
             // Protein
             case '203':
-              nutrients.push({
-                id: item.nutrientNumber,
-                name: item.name,
-                amount: item.amount,
-                unit: item.unitName,
-              });
+              nutrients.push(convert(item));
               break;
             // Total Fat, lipids
             case '204':
-              nutrients.push({
-                id: item.nutrientNumber,
-                name: item.name,
-                amount: item.amount,
-                unit: item.unitName,
-              });
+              nutrients.push(convert(item));
               break;
             // Carbohydrate
             case '205':
-              nutrients.push({
-                id: item.nutrientNumber,
-                name: item.name,
-                amount: item.amount,
-                unit: item.unitName,
-              });
+              nutrients.push(convert(item));
               break;
             // Energy
             case '208':
-              nutrients.push({
-                id: item.nutrientNumber,
-                name: item.name,
-                amount: item.amount,
-                unit: item.unitName,
-              });
+              nutrients.push(convert(item));
               break;
             // Sugar
             case '269':
-              nutrients.push({
-                id: item.nutrientNumber,
-                name: item.name,
-                amount: item.amount,
-                unit: item.unitName,
-              });
+              nutrients.push(convert(item));
               break;
           }
         }
@@ -81,7 +63,7 @@ export const searchFood = (humanText: String) => {
         return {
           id: it.fdcId,
           name: it.description,
-          nutrients: it.foodNutrients,
+          nutrients: nutrients,
         };
       });
       return ingredients;

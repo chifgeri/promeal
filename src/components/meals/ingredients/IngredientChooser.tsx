@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import BaseInput from '../../core/components/BaseInput';
-import BaseButton from '../../core/components/BaseButton';
-import {Ingredient} from '../../data/ingredient.dto';
+import BaseInput from '../../../core/components/BaseInput';
+import BaseButton from '../../../core/components/BaseButton';
+import {Ingredient} from '../../../data/ingredient.dto';
+import IngredientSearch from './IngredientSearch';
+import NutrientsList from './NutrientsList';
 
 interface Props {
   addIngredient: (ingredient: Ingredient) => void;
@@ -23,23 +25,17 @@ const styles = StyleSheet.create({
 
 const IngredientChooser = (props: Props) => {
   const [newIngredient, setNewIngredient] = useState<Ingredient | null>(null);
-  const [name, setName] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
-
-  useEffect(() => {
-    if (newIngredient) {
-      props.addIngredient(newIngredient);
-    }
-  }, [newIngredient]);
 
   return (
     <View>
-      <BaseInput
-        inlineImageLeft="ic_search"
-        placeholder="Search ingredients or meals"
-        value={name}
-        onChangeText={text => setName(text)}
-      />
+      <IngredientSearch addIngredient={i => setNewIngredient(i)} />
+      {newIngredient && (
+        <View>
+          <Text>Nutrients per 100g</Text>
+          <NutrientsList ingredient={newIngredient} />
+        </View>
+      )}
       <View style={styles.quantity}>
         <Text>Quantity</Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -58,18 +54,11 @@ const IngredientChooser = (props: Props) => {
       <View style={styles.addButton}>
         <BaseButton
           onPress={() => {
-            if (name.length !== 0 && quantity > 0) {
+            if (newIngredient && quantity > 0) {
               props.addIngredient({
-                key: Math.random() * 100,
-                name: name,
+                ...newIngredient,
                 quantityInGramm: quantity,
-                nutrients: [
-                  {nutrient: 'CH', key: Math.random(), quantity: '100mg'},
-                ],
               });
-              setName('');
-              setQuantity(0);
-              setNewIngredient(null);
             }
           }}
           primary>
