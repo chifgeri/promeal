@@ -1,13 +1,5 @@
-import React from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Button,
-  Text,
-  TouchableHighlight,
-} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, StyleSheet, SafeAreaView, View} from 'react-native';
 import {Meal} from 'src/data/meals.dto';
 import MealCard from './MealCard';
 
@@ -53,15 +45,7 @@ const MealList = (props: Props) => {
             <MealCard removeItem={props.removeItem} meal={item} />
           </View>
         )}
-        ListFooterComponent={
-          <TouchableHighlight
-            onPress={() => {}}
-            style={styles.button}
-            underlayColor="green">
-            <Text style={styles.buttonText}>Add</Text>
-          </TouchableHighlight>
-        }
-        keyExtractor={item => item.key.toString()}
+        keyExtractor={item => item.id.toString()}
       />
     </SafeAreaView>
   );
