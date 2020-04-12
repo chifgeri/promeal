@@ -1,6 +1,6 @@
 export interface Ingredient {
-  key: number;
+  id: string;
   name: string;
-  nutrients?: {key: number; nutrient: string; quantity: string}[];
+  nutrients?: {id: string; nutrient: string; quantity: string; unit: string}[];
   quantityInGramm: number;
 }
