@@ -1,6 +1,6 @@
 import axios, {Canceler, CancelToken} from 'axios';
 import react, {useState} from 'react';
-import {Ingredient} from 'src/data/ingredient.dto';
+import {Ingredient} from '../../entities/ingredient';
 
 const APIKEY = 'DEMO_KEY';
 

@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import BaseButton from '../../core/components/BaseButton';
 import BaseInput from '../../core/components/BaseInput';
-import {Ingredient} from 'src/data/ingredient.dto';
+import {Ingredient} from '../../entities/ingredient';
 import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
 import IngredientChooser from './ingredients/IngredientChooser';
-import {Meal} from 'src/data/meals.dto';
+import {Meal} from '../../entities/meals';
 
 interface Props {
   route: {

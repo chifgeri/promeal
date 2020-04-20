@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import BaseInput from '../../../core/components/BaseInput';
 import BaseButton from '../../../core/components/BaseButton';
-import {Ingredient} from '../../../data/ingredient.dto';
+import {Ingredient} from '../../../entities/ingredient';
 import IngredientSearch from './IngredientSearch';
 import NutrientsList from './NutrientsList';
 

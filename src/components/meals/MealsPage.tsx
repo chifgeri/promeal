@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, TouchableHighlight} from 'react-native';
 import MealList from './MealList';
-import {Meal} from 'src/data/meals.dto';
+import {Meal} from '../../entities/meals';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import IngredientSearch from './ingredients/IngredientSearch';

@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Meal} from 'src/data/meals.dto';
+import {Meal} from '../../entities/meals';
 import {useNavigation} from '@react-navigation/native';
 
 interface Props {
@@ -89,7 +89,7 @@ const MealCard: React.FC<Props> = ({meal, removeItem}) => {
         <Text>Ingredients:</Text>
         {meal
           ? meal.ingredients.map(item => (
-              <View key={`ingrd-${item.key}`} style={style.ingredients}>
+              <View key={`ingrd-${item.id}`} style={style.ingredients}>
                 <Text>{item.name}:</Text>
                 <Text>{item.quantityInGramm} gr</Text>
               </View>
@@ -104,7 +104,7 @@ const MealCard: React.FC<Props> = ({meal, removeItem}) => {
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => {
-            removeItem(meal.key);
+            removeItem(meal.id);
           }}
           underlayColor="#FFFFFF00">
           <View style={style.delete}>

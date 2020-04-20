@@ -1,5 +1,5 @@
 import React from 'react';
-import {Ingredient} from 'src/data/ingredient.dto';
+import {Ingredient} from '../../../entities/ingredient';
 import {
   View,
   Text,
@@ -38,7 +38,7 @@ const IngredientList = (props: Props) => {
         renderItem={({item}) => (
           <Item item={item} setIngredient={props.setIngredient} />
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
       />
     </SafeAreaView>
   );

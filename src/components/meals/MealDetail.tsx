@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BaseButton from '../../core/components/BaseButton';
 import IngredientChooser from './ingredients/IngredientChooser';
-import {Meal} from '../../data/meals.dto';
+import {Meal} from '../../entities/meals';
 import NutrientsList from './ingredients/NutrientsList';
 
 interface Props {

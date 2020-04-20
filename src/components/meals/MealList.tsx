@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, SafeAreaView, View} from 'react-native';
-import {Meal} from 'src/data/meals.dto';
+import {Meal} from '../../entities/meals';
 import MealCard from './MealCard';
 
 interface Props {

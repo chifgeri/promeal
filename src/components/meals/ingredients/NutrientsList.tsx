@@ -1,5 +1,5 @@
 import React from 'react';
-import {Ingredient} from 'src/data/ingredient.dto';
+import {Ingredient} from '../../../entities/ingredient';
 import {View, Text, StyleSheet} from 'react-native';
 
 interface Props {
