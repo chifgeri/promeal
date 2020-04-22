@@ -70,11 +70,11 @@ const MealCreate = (props: Props) => {
         </TouchableHighlight>
         <BaseButton
           onPress={() => {
-            props.route.params.addMeal({
-              id: 5,
-              ingredients: ingredients,
-              name: name,
-            });
+            let meal = new Meal();
+            meal.ingredients = ingredients;
+            meal.name = name;
+            props.route.params.addMeal(meal);
+            navigation.goBack();
           }}
           secondary
           style={{marginTop: 10}}>

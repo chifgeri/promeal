@@ -64,8 +64,8 @@ const MealDetail = (props: Props) => {
         <Text style={styles.title}>{meal.name}</Text>
         <View style={styles.section}>
           <Text style={styles.subtitle}>Ingredients</Text>
-          {meal.ingredients.map(item => (
-            <View key={item.id} style={styles.ingredient}>
+          {meal.ingredients.map((item, index) => (
+            <View key={`ingr-${index}`} style={styles.ingredient}>
               <View style={styles.row}>
                 <Text style={styles.ingrText}>{item.name} (Brand)</Text>
                 <View style={{flexDirection: 'row'}}>

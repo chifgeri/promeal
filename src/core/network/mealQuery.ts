@@ -1,5 +1,4 @@
 import axios, {Canceler, CancelToken} from 'axios';
-import react, {useState} from 'react';
 import {Ingredient} from '../../entities/ingredient';
 import {Nutrient} from '../../entities/nutrient';
 
@@ -12,7 +11,7 @@ const baseRequest = axios.create({
 
 const convert = (item: any) => {
   let nutr = new Nutrient();
-  nutr.id = item.id;
+  nutr.nutrientApiID = item.nutrientNumber;
   nutr.nutrient = item.nutrientName;
   nutr.amount = item.value;
   nutr.unit = item.unitName;
@@ -66,7 +65,7 @@ export const searchFood = (humanText: String) => {
 
         let ingr = new Ingredient();
 
-        ingr.id = it.fdcId;
+        ingr.foodApiID = it.fdcId;
         ingr.name = it.description;
         ingr.nutrients = nutrients;
         return ingr;

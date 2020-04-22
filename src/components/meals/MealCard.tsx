@@ -72,46 +72,51 @@ const style = StyleSheet.create({
 const MealCard: React.FC<Props> = ({meal, removeItem}) => {
   const navigation = useNavigation();
   return (
-    <View
-      style={style.card}
-      onTouchEnd={() => {
-        navigation.navigate('MealDetail', {meal: meal});
-      }}>
-      <ImageBackground
-        source={require('../../assets/mealCard.png')}
-        style={style.titleBackground}
-        resizeMode="stretch">
+    <View style={style.card}>
+      <TouchableHighlight
+        onPress={() => {
+          navigation.navigate('MealDetail', {meal: meal});
+        }}
+        underlayColor="#FFFFFFF00">
         <View>
-          <Text style={style.title}>{meal.name}</Text>
-        </View>
-      </ImageBackground>
-      <View style={style.cardContent}>
-        <Text>Ingredients:</Text>
-        {meal
-          ? meal.ingredients.map(item => (
-              <View key={`ingrd-${item.id}`} style={style.ingredients}>
-                <Text>{item.name}:</Text>
-                <Text>{item.quantityInGramm} gr</Text>
+          <ImageBackground
+            source={require('../../assets/mealCard.png')}
+            style={style.titleBackground}
+            resizeMode="stretch">
+            <View>
+              <Text style={style.title}>{meal.name}</Text>
+            </View>
+          </ImageBackground>
+          <View style={style.cardContent}>
+            <Text>Ingredients:</Text>
+            {meal
+              ? meal.ingredients.map((item, index) => (
+                  <View key={`ingrd-${index}`} style={style.ingredients}>
+                    <Text>{item.name}:</Text>
+                    <Text>{item.quantityInGramm} gr</Text>
+                  </View>
+                ))
+              : null}
+          </View>
+          <View style={style.bottomButtons}>
+            <TouchableHighlight onPress={() => {}} underlayColor="#FFFFFF00">
+              <View style={style.edit}>
+                <Icon name="edit" size={20} color="black" />
               </View>
-            ))
-          : null}
-      </View>
-      <View style={style.bottomButtons}>
-        <TouchableHighlight onPress={() => {}} underlayColor="#FFFFFF00">
-          <View style={style.edit}>
-            <Icon name="edit" size={20} color="black" />
+            </TouchableHighlight>
+            <TouchableHighlight
+              onPress={e => {
+                removeItem(meal.id);
+                e.stopPropagation();
+              }}
+              underlayColor="#FFFFFF00">
+              <View style={style.delete}>
+                <Icon name="clear" size={20} color="white" />
+              </View>
+            </TouchableHighlight>
           </View>
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => {
-            removeItem(meal.id);
-          }}
-          underlayColor="#FFFFFF00">
-          <View style={style.delete}>
-            <Icon name="clear" size={20} color="white" />
-          </View>
-        </TouchableHighlight>
-      </View>
+        </View>
+      </TouchableHighlight>
     </View>
   );
 };
