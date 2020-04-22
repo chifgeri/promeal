@@ -1,9 +1,9 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   OneToMany,
   ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import {Nutrient} from './nutrient';
 import {Meal} from './meals';
@@ -13,12 +13,17 @@ export class Ingredient {
   id: number;
 
   @Column()
+  foodApiID: string;
+
+  @Column()
   name: string;
 
-  @OneToMany(type => Nutrient, nutrient => nutrient.ingredient, {cascade: true})
+  @OneToMany(type => Nutrient, nutrient => nutrient.ingredient, {
+    cascade: true,
+  })
   nutrients?: Nutrient[];
 
-  @ManyToOne(type => Meal, meal => meal.ingredients)
+  @ManyToOne(type => Meal, meal => meal.ingredients, {onDelete: 'CASCADE'})
   meal: Meal;
 
   @Column()
