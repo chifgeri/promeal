@@ -7,7 +7,6 @@ import {
 } from 'typeorm';
 import {Nutrient} from './nutrient';
 import {Meal} from './meals';
-
 @Entity()
 export class Ingredient {
   @PrimaryGeneratedColumn()
@@ -16,7 +15,7 @@ export class Ingredient {
   @Column()
   name: string;
 
-  @OneToMany(type => Nutrient, nutrient => nutrient.ingredient)
+  @OneToMany(type => Nutrient, nutrient => nutrient.ingredient, {cascade: true})
   nutrients?: Nutrient[];
 
   @ManyToOne(type => Meal, meal => meal.ingredients)
