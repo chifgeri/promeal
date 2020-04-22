@@ -1,20 +1,24 @@
 import axios, {Canceler, CancelToken} from 'axios';
 import react, {useState} from 'react';
 import {Ingredient} from '../../entities/ingredient';
+import {Nutrient} from '../../entities/nutrient';
 
 const APIKEY = 'DEMO_KEY';
 
 const baseRequest = axios.create({
   baseURL: 'https://api.nal.usda.gov/fdc/v1/foods',
-  timeout: 10000,
+  timeout: 3000,
 });
 
-const convert = (item: any) => ({
-  id: item.nutrientNumber,
-  nutrient: item.nutrientName,
-  amount: item.value,
-  unit: item.unitName,
-});
+const convert = (item: any) => {
+  let nutr = new Nutrient();
+  nutr.id = item.id;
+  nutr.nutrient = item.nutrientName;
+  nutr.amount = item.value;
+  nutr.unit = item.unitName;
+
+  return nutr;
+};
 
 export const searchFood = (humanText: String) => {
   // If another call executed, the component cancels the old request
@@ -60,11 +64,12 @@ export const searchFood = (humanText: String) => {
           }
         }
 
-        return {
-          id: it.fdcId,
-          name: it.description,
-          nutrients: nutrients,
-        };
+        let ingr = new Ingredient();
+
+        ingr.id = it.fdcId;
+        ingr.name = it.description;
+        ingr.nutrients = nutrients;
+        return ingr;
       });
       return ingredients;
     } catch (err) {
