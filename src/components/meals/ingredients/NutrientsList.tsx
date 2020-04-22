@@ -12,7 +12,7 @@ const NutrientsList = (props: Props) => {
       {props.ingredient.nutrients &&
         props.ingredient.nutrients.map((it, index) => (
           <View
-            key={it.id}
+            key={`nutr-${index}`}
             style={index % 2 === 0 ? styles.nutrTextLight : styles.nutrText}>
             <Text>{it.nutrient}</Text>
             <Text>

@@ -38,7 +38,7 @@ const IngredientList = (props: Props) => {
         renderItem={({item}) => (
           <Item item={item} setIngredient={props.setIngredient} />
         )}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item, index) => item.name + index}
       />
     </SafeAreaView>
   );
