@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 interface Props {
   meal: Meal;
   removeItem: (id: number) => void;
+  saveMeal: (meal: Meal) => void;
 }
 
 const style = StyleSheet.create({
@@ -69,7 +70,7 @@ const style = StyleSheet.create({
   },
 });
 
-const MealCard: React.FC<Props> = ({meal, removeItem}) => {
+const MealCard: React.FC<Props> = ({meal, removeItem, saveMeal}) => {
   const navigation = useNavigation();
   return (
     <View style={style.card}>
@@ -79,14 +80,39 @@ const MealCard: React.FC<Props> = ({meal, removeItem}) => {
         }}
         underlayColor="#FFFFFFF00">
         <View>
-          <ImageBackground
-            source={require('../../assets/mealCard.png')}
-            style={style.titleBackground}
-            resizeMode="stretch">
-            <View>
-              <Text style={style.title}>{meal.name}</Text>
-            </View>
-          </ImageBackground>
+          <View style={{flexDirection: 'row'}}>
+            <ImageBackground
+              source={require('../../assets/mealCard.png')}
+              style={style.titleBackground}
+              resizeMode="stretch">
+              <View>
+                <Text style={style.title}>{meal.name}</Text>
+              </View>
+            </ImageBackground>
+            {meal.favorite ? (
+              <TouchableHighlight
+                style={{marginRight: 10, marginTop: 10}}
+                underlayColor="#FFFFFF00"
+                onPress={e => {
+                  e.preventDefault();
+                  meal.favorite = false;
+                  saveMeal(meal);
+                }}>
+                <Icon name="favorite" size={25} color="grey" />
+              </TouchableHighlight>
+            ) : (
+              <TouchableHighlight
+                style={{marginRight: 10, marginTop: 10}}
+                underlayColor="#FFFFFF00"
+                onPress={e => {
+                  e.preventDefault();
+                  meal.favorite = true;
+                  saveMeal(meal);
+                }}>
+                <Icon name="favorite-border" size={25} color="grey" />
+              </TouchableHighlight>
+            )}
+          </View>
           <View style={style.cardContent}>
             <Text>Ingredients:</Text>
             {meal

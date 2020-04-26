@@ -6,6 +6,7 @@ import MealCard from './MealCard';
 interface Props {
   meals: Meal[];
   removeItem: (id: number) => void;
+  saveMeal: (meal: Meal) => void;
 }
 
 const styles = StyleSheet.create({
@@ -39,10 +40,14 @@ const MealList = (props: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={props.meals}
+        data={props.meals.sort((a, b) => (a.favorite ? -1 : 1))}
         renderItem={({item}) => (
           <View style={styles.item}>
-            <MealCard removeItem={props.removeItem} meal={item} />
+            <MealCard
+              removeItem={props.removeItem}
+              meal={item}
+              saveMeal={props.saveMeal}
+            />
           </View>
         )}
         keyExtractor={item => item.id.toString()}

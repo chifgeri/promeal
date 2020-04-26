@@ -34,7 +34,17 @@ const MealsPage = () => {
   return (
     <>
       {/* Search bar */}
-      {meals && <MealList removeItem={removeItem} meals={meals} />}
+      {meals && 
+        <MealList 
+          removeItem={removeItem}
+          meals={meals}
+          saveMeal={(meal:Meal) =>{ 
+              mealRepository?.save(meal)
+              .then(meal => 
+                setMeals([...meals.filter(item => item.id !== meal.id), meal]))
+              }}
+        />
+      }
       <TouchableHighlight
         onPress={() => {
           navigation.navigate('MealCreate', {

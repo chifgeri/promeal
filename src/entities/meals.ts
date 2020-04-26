@@ -6,6 +6,9 @@ export class Meal {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({nullable: true})
+  favorite?: boolean;
+
   @OneToMany(type => Ingredient, ingredient => ingredient.meal, {
     cascade: true,
   })
