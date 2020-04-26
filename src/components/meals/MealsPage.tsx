@@ -1,28 +1,60 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, TouchableHighlight} from 'react-native';
 import MealList from './MealList';
-import {Meal} from 'src/data/meals.dto';
+import {Meal} from '../../entities/meals';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-import IngredientSearch from './ingredients/IngredientSearch';
+import {useConnection} from '../../core/database/connection';
 
 const MealsPage = () => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const navigation = useNavigation();
+
+  const {mealRepository} = useConnection();
+
+  useEffect(() => {
+    if (mealRepository) {
+      mealRepository
+        .find({relations: ['ingredients', 'ingredients.nutrients']})
+        .then(meals => setMeals(meals));
+    }
+  }, [mealRepository]);
+
+  const removeItem = (id: number) => {
+    if (mealRepository) {
+      mealRepository.findOne(id).then(meal => {
+        if (meal) {
+          mealRepository.delete(meal.id).then(it => {
+            setMeals(meals.filter(item => item.id !== meal.id));
+          });
+        }
+      });
+    }
+  };
   return (
     <>
       {/* Search bar */}
-      {meals && (
-        <MealList
-          removeItem={id => setMeals(meals.filter(item => item.id !== id))}
+      {meals && 
+        <MealList 
+          removeItem={removeItem}
           meals={meals}
+          saveMeal={(meal:Meal) =>{ 
+              mealRepository?.save(meal)
+              .then(meal => 
+                setMeals([...meals.filter(item => item.id !== meal.id), meal]))
+              }}
         />
-      )}
+      }
       <TouchableHighlight
         onPress={() => {
           navigation.navigate('MealCreate', {
             addMeal: (meal: Meal) => {
-              setMeals([...meals, meal]);
+              if (mealRepository) {
+                mealRepository.save(meal).then(() => {
+                  console.log(meal);
+                  setMeals([...meals, meal]);
+                });
+              }
             },
           });
         }}

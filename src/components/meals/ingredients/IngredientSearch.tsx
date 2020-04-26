@@ -3,7 +3,7 @@ import {searchFood} from '../../../core/network/mealQuery';
 import BaseInput from '../../../core/components/BaseInput';
 import {View} from 'react-native';
 import {CancelTokenSource} from 'axios';
-import {Ingredient} from 'src/data/ingredient.dto';
+import {Ingredient} from '../../../entities/ingredient';
 import IngredientList from './IngredientList';
 
 interface Props {

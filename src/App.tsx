@@ -8,6 +8,12 @@ import StatisticsPage from './components/statistics/StatisticsPage';
 import SettingsPage from './components/settings/SettingsPage';
 import MealStackScreen from './components/meals/MealsStack';
 
+import {YellowBox} from 'react-native';
+
+YellowBox.ignoreWarnings([
+  'Non-serializable values were found in the navigation state',
+]);
+
 const Tab = createBottomTabNavigator();
 
 const App = () => {

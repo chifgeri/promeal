@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BaseButton from '../../core/components/BaseButton';
 import IngredientChooser from './ingredients/IngredientChooser';
-import {Meal} from '../../data/meals.dto';
+import {Meal} from '../../entities/meals';
 import NutrientsList from './ingredients/NutrientsList';
 
 interface Props {
@@ -64,8 +64,8 @@ const MealDetail = (props: Props) => {
         <Text style={styles.title}>{meal.name}</Text>
         <View style={styles.section}>
           <Text style={styles.subtitle}>Ingredients</Text>
-          {meal.ingredients.map(item => (
-            <View key={item.id} style={styles.ingredient}>
+          {meal.ingredients.map((item, index) => (
+            <View key={`ingr-${index}`} style={styles.ingredient}>
               <View style={styles.row}>
                 <Text style={styles.ingrText}>{item.name} (Brand)</Text>
                 <View style={{flexDirection: 'row'}}>
