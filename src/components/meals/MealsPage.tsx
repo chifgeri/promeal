@@ -1,16 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {StyleSheet, TouchableHighlight} from 'react-native';
 import MealList from './MealList';
 import {Meal} from '../../entities/meals';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-import {useConnection} from '../../core/database/connection';
+import { ConnectionContext } from '../../core/database/ConnectionContext';
+import { Repository } from 'typeorm';
 
 const MealsPage = () => {
   const [meals, setMeals] = useState<Meal[]>([]);
+  const [mealRepository, setMealRepository] = useState<Repository<Meal>>();
   const navigation = useNavigation();
-
-  const {mealRepository} = useConnection();
+  const conn = useContext(ConnectionContext)
+  
+  useEffect(() => {
+    if(conn){
+      setMealRepository(conn.getRepository<Meal>('Meal'));
+    }
+  }, [conn])
+  
 
   useEffect(() => {
     if (mealRepository) {
