@@ -48,8 +48,8 @@ const MealCreate = (props: Props) => {
         </View>
         <View style={styles.section}>
           <Text style={styles.subtitle}>Ingredients</Text>
-          {ingredients.map(item => (
-            <View key={item.id} style={styles.ingredient}>
+          {ingredients.map((item, index) => (
+            <View key={`${item.name}-${index}`} style={styles.ingredient}>
               <Text>{item.name} (Brand)</Text>
               <Text>{item.quantityInGramm} gr</Text>
             </View>
