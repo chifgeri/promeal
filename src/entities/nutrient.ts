@@ -13,7 +13,7 @@ export class Nutrient {
   nutrient: string;
 
   @Column()
-  amount: string;
+  amount: number;
 
   @Column()
   unit: string;

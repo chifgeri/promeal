@@ -1,22 +1,22 @@
 import React from 'react';
-import {Ingredient} from '../../../entities/ingredient';
 import {View, Text, StyleSheet} from 'react-native';
+import {Nutrient} from '../../../entities/nutrient';
 
 interface Props {
-  ingredient: Ingredient;
+  nutrients: Nutrient[];
 }
 
 const NutrientsList = (props: Props) => {
   return (
     <View>
-      {props.ingredient.nutrients &&
-        props.ingredient.nutrients.map((it, index) => (
+      {props.nutrients &&
+        props.nutrients.map((it, index) => (
           <View
             key={`nutr-${index}`}
             style={index % 2 === 0 ? styles.nutrTextLight : styles.nutrText}>
             <Text>{it.nutrient}</Text>
             <Text>
-              {it.amount} {it.unit}
+              {it.amount.toString()} {it.unit}
             </Text>
           </View>
         ))}

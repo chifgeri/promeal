@@ -33,7 +33,7 @@ const IngredientChooser = (props: Props) => {
       {newIngredient && (
         <View>
           <Text>Nutrients per 100g</Text>
-          <NutrientsList ingredient={newIngredient} />
+          <NutrientsList nutrients={newIngredient.nutrients} />
         </View>
       )}
       <View style={styles.quantity}>

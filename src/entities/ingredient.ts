@@ -21,7 +21,7 @@ export class Ingredient {
   @OneToMany(type => Nutrient, nutrient => nutrient.ingredient, {
     cascade: true,
   })
-  nutrients?: Nutrient[];
+  nutrients: Nutrient[];
 
   @ManyToOne(type => Meal, meal => meal.ingredients, {onDelete: 'CASCADE'})
   meal: Meal;

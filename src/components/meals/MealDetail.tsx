@@ -81,7 +81,7 @@ const MealDetail = (props: Props) => {
                   )}
                 </View>
               </View>
-              <NutrientsList ingredient={item} />
+              <NutrientsList nutrients={item.nutrients} />
             </View>
           ))}
         </View>

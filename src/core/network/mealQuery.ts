@@ -13,7 +13,7 @@ const convert = (item: any) => {
   let nutr = new Nutrient();
   nutr.nutrientApiID = item.nutrientNumber;
   nutr.nutrient = item.nutrientName;
-  nutr.amount = item.value;
+  nutr.amount = Number(item.value);
   nutr.unit = item.unitName;
 
   return nutr;
