@@ -2,7 +2,6 @@ import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import TrackerPage from './components/tracker/TrackerPage';
 import StatisticsPage from './components/statistics/StatisticsPage';
 import SettingsPage from './components/settings/SettingsPage';
 import MealStackScreen from './components/meals/MealsStack';
@@ -10,9 +9,11 @@ import MealStackScreen from './components/meals/MealsStack';
 import {YellowBox} from 'react-native';
 import {ConnectionContext, connect} from './core/database/ConnectionContext';
 import {Connection} from 'typeorm';
+import TrackerMainStack from './components/tracker/TrackerStack';
 
 YellowBox.ignoreWarnings([
   'Non-serializable values were found in the navigation state',
+  'Require cycle:',
 ]);
 
 const Tab = createBottomTabNavigator();
@@ -62,7 +63,7 @@ const App = () => {
             inactiveTintColor: 'gray',
           }}>
           <Tab.Screen name="Meals" component={MealStackScreen} />
-          <Tab.Screen name="Tracker" component={TrackerPage} />
+          <Tab.Screen name="Tracker" component={TrackerMainStack} />
           <Tab.Screen name="Statistics" component={StatisticsPage} />
           <Tab.Screen name="Settings" component={SettingsPage} />
         </Tab.Navigator>

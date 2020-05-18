@@ -23,7 +23,7 @@ const MealsPage = () => {
   useEffect(() => {
     if (mealRepository) {
       mealRepository
-        .find({relations: ['ingredients', 'ingredients.nutrients']})
+        .find({ deleted: false}, {relations: ['ingredients', 'ingredients.nutrients']})
         .then(meals => setMeals(meals));
     }
   }, [mealRepository]);
@@ -31,9 +31,10 @@ const MealsPage = () => {
   const removeItem = (id: number) => {
     if (mealRepository) {
       mealRepository.findOne(id).then(meal => {
-        if (meal) {
-          mealRepository.delete(meal.id).then(it => {
-            setMeals(meals.filter(item => item.id !== meal.id));
+          if(meal){
+            meal.deleted = true;
+            mealRepository.save(meal).then(meal => {
+              setMeals(meals.filter(item => item.id !== meal.id));
           });
         }
       });

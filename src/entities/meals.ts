@@ -1,5 +1,13 @@
 import {Ingredient} from './ingredient';
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
+import {Dish} from './dish';
 
 @Entity()
 export class Meal {
@@ -16,4 +24,10 @@ export class Meal {
 
   @Column()
   name: string;
+
+  @Column({default: false})
+  deleted: boolean;
+
+  @OneToMany(type => Dish, dish => dish.meal)
+  dishes?: Dish[];
 }
