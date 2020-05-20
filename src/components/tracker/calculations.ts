@@ -49,8 +49,5 @@ export const calcMealArrayNutrient = (meals: Meal[]) => {
       }),
     };
   });
-
-  console.log(sumOfMeals);
-
   return sumOfMeals;
 };
