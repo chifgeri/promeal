@@ -16,6 +16,8 @@ const TrackerPage = () => {
   const [dayRepo, setDayRepo] = useState<Repository<Day> | null>(null);
   const [day, setDay] = useState<Day | null>();
 
+  const [summaryOpened, setSummaryOpened] = useState<boolean>(false);
+
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const conn = useContext(ConnectionContext);
@@ -68,8 +70,9 @@ const TrackerPage = () => {
   }, [day]);
 
   return (
+    <View>
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.cards}>
+      <View style={summaryOpened ? {...styles.cards} : {...styles.cards, marginBottom: 40}}>
         {day && (
           <View>
             <Text style={styles.date}>{day.date}</Text>
@@ -107,18 +110,20 @@ const TrackerPage = () => {
           }}
         />
       </View>
-      <View />
+      
     </ScrollView>
+    {day?.mealsEaten && <Summary opened={summaryOpened} setOpened={setSummaryOpened} meals={[...day!.mealsEaten.map(item => item.meal)]}/>}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
     justifyContent: 'space-between',
   },
   cards: {
     alignItems: 'center',
+    marginBottom: 100,
   },
   date: {
     fontSize: 24,

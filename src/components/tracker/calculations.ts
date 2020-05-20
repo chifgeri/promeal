@@ -36,7 +36,7 @@ export const calcMealArrayNutrient = (meals: Meal[]) => {
     let sum = calcNutrients(meal);
     sumOfMeals = {
       quantity: sumOfMeals.quantity + sum.quantity,
-      nutrients: sumOfMeals.nutrients.map(nutri => {
+      nutrients: sum.nutrients.map(nutri => {
         let nutr = sumOfMeals.nutrients.find(
           item => item.nutrientApiID === nutri.nutrientApiID,
         );
@@ -49,5 +49,8 @@ export const calcMealArrayNutrient = (meals: Meal[]) => {
       }),
     };
   });
+
+  console.log(sumOfMeals);
+
   return sumOfMeals;
 };
