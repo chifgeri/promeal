@@ -23,7 +23,7 @@ const MealsPage = () => {
   useEffect(() => {
     if (mealRepository) {
       mealRepository
-        .find({ deleted: false}, {relations: ['ingredients', 'ingredients.nutrients']})
+        .find({ where: { deleted: false }, relations: ['ingredients', 'ingredients.nutrients']})
         .then(meals => setMeals(meals));
     }
   }, [mealRepository]);

@@ -17,7 +17,10 @@ export const calcNutrients = (meal: Meal) => {
       if (nutr) {
         nutr.amount += (nutri.amount * ingr.quantityInGramm) / 100;
       } else {
-        nutrients.push(nutri);
+        nutrients.push({
+          ...nutri,
+          amount: (nutri.amount * ingr.quantityInGramm) / 100,
+        });
       }
     });
     quantity += ingr.quantityInGramm;

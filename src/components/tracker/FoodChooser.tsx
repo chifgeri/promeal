@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ColorPropType,
 } from 'react-native';
-import BaseButton from '../../core/components/BaseButton';
 import {Meal} from '../../entities/meals';
 import {Repository} from 'typeorm';
 
@@ -56,10 +55,10 @@ const FoodChooser = (props: Props) => {
   useEffect(() => {
     if (props.mealRepo && props.open) {
       props.mealRepo
-        .find(
-          {deleted: false},
-          {relations: ['ingredients', 'ingredients.nutrients']},
-        )
+        .find({
+          where: {deleted: false},
+          relations: ['ingredients', 'ingredients.nutrients'],
+        })
         .then(results => {
           if (results) {
             setMeals(results);
