@@ -10,6 +10,7 @@ import FoodChooser from './FoodChooser';
 import Summary from './Summary';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Dish} from '../../entities/dish';
+import BaseInput from '../../core/components/BaseInput';
 
 const TrackerPage = () => {
   const [mealRepo, setMealRepo] = useState<Repository<Meal> | null>(null);
@@ -78,6 +79,23 @@ const TrackerPage = () => {
             <Text style={styles.date}>{day.date}</Text>
           </View>
         )}
+        {day &&
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', width:'100%', paddingHorizontal: 12}}>
+            <Text>Weight:</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <BaseInput
+                placeholder="gramms"
+                keyboardType="decimal-pad"
+                underlineColorAndroid="grey"
+                value={day.weight.toString()}
+                onChangeText={text => {
+                  setDay({...day, weight: Number(text)});
+               }}
+              />
+              <Text>kg</Text>
+            </View>
+          </View>
+        }
         {day &&
           day.mealsEaten.map((item, index) => (
             <FoodCard
