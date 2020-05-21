@@ -10,6 +10,7 @@ import {YellowBox} from 'react-native';
 import {ConnectionContext, connect} from './core/database/ConnectionContext';
 import {Connection} from 'typeorm';
 import TrackerMainStack from './components/tracker/TrackerStack';
+import StatisticsMainStack from './components/statistics/SatisticsStack';
 
 YellowBox.ignoreWarnings([
   'Non-serializable values were found in the navigation state',
@@ -64,7 +65,7 @@ const App = () => {
           }}>
           <Tab.Screen name="Meals" component={MealStackScreen} />
           <Tab.Screen name="Tracker" component={TrackerMainStack} />
-          <Tab.Screen name="Statistics" component={StatisticsPage} />
+          <Tab.Screen name="Statistics" component={StatisticsMainStack} />
           <Tab.Screen name="Settings" component={SettingsPage} />
         </Tab.Navigator>
       </NavigationContainer>

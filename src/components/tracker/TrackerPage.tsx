@@ -138,6 +138,7 @@ const TrackerPage = () => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
+    minHeight: '100%'
   },
   cards: {
     alignItems: 'center',
